@@ -1,0 +1,26 @@
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS accounts;
+
+CREATE TABLE `customer`
+(
+    `id`            int AUTO_INCREMENT PRIMARY KEY,
+    `name`          varchar(100) NOT NULL,
+    `email`         varchar(100) NOT NULL,
+    `mobile_number` varchar(20)  NOT NULL,
+    `create_dt`     date DEFAULT NULL
+);
+
+CREATE TABLE `account`
+(
+    `customer_id`    int          NOT NULL,
+    `id`             int AUTO_INCREMENT PRIMARY KEY,
+    `account_type`   varchar(100) NOT NULL,
+    `branch_address` varchar(200) NOT NULL,
+    `create_dt`      date DEFAULT NULL
+);
+
+INSERT INTO `customer` (`name`, `email`, `mobile_number`, `create_dt`)
+VALUES ('javasmartdev', 'javasmartdev@gmail.com', '0332567647', CURDATE());
+
+INSERT INTO `account` (`customer_id`, `id`, `account_type`, `branch_address`, `create_dt`)
+VALUES (1, 1, 'Savings', '123 Main Street, New York', CURDATE());
