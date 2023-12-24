@@ -58,7 +58,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<builder>paketobuildpacks/builder-jammy-base:latest</builder>
+						<name>javasmartdev/${project.artifactId}:s4</name>
 					</image>
 					<excludes>
 						<exclude>
