@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to Bank accounts related local APIs "
+  contactDetails:
+    name: "smartdev"
+    email: "hoang.ngoc.hungit@gmail.com"
+  onCallSupport:
+    - (555) 0332567647
+    - (999) 0332567647

@@ -1,0 +1,11 @@
+build:
+  version: "3.0"
+
+cards:
+  message: "Welcome to Bank cards related local APIs "
+  contactDetails:
+    name: "SmartDev - Developer"
+    email: "hoang.ngoc.hungit@gmail.com"
+  onCallSupport:
+    - (412) 999-999
+    - (915) 333-333

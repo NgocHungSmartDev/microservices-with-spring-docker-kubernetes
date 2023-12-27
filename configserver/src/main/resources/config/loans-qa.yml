@@ -1,0 +1,11 @@
+build:
+  version: "1.0"
+
+loans:
+  message: "Welcome to Bank loans related local APIs "
+  contactDetails:
+    name: "SmartDev - Developer"
+    email: "amaal@eazybank.com"
+  onCallSupport:
+    - (452) 222-222
+    - (546) 111-111
