@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
@@ -38,6 +40,12 @@ public class LoansController {
                                                      String mobileNumber) {
         LoansDto loansDto = iLoansService.fetchLoan(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(loansDto);
+    }
+
+    @GetMapping("/loans")
+    public ResponseEntity<List<LoansDto>> fetchLoans() {
+        List<LoansDto> loansDtos = iLoansService.fetchLoans();
+        return ResponseEntity.status(HttpStatus.OK).body(loansDtos);
     }
 
     @PutMapping("/update")

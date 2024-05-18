@@ -11,6 +11,8 @@ import com.smartdev.loans.service.ILoansService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -59,6 +61,13 @@ public class LoansServiceImpl implements ILoansService {
                 () -> new ResourceNotFoundException("Loan", "mobileNumber", mobileNumber)
         );
         return LoansMapper.mapToLoansDto(loans, new LoansDto());
+    }
+
+    @Override
+    public List<LoansDto> fetchLoans() {
+        List<LoansDto> loansDtos = new ArrayList<>();
+        loansRepository.findAll().stream().forEach(loan -> loansDtos.add(LoansMapper.mapToLoansDto(loan, new LoansDto())));
+        return loansDtos;
     }
 
     /**

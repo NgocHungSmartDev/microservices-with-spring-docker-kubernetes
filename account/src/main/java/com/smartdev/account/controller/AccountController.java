@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(
     path = "/api",
@@ -35,6 +37,12 @@ public class AccountController {
           String mobileNumber) {
     CustomerDto customerDto = iAccountService.fetchAccount(mobileNumber);
     return ResponseEntity.status(HttpStatus.OK).body(customerDto);
+  }
+
+  @GetMapping("/accounts")
+  public ResponseEntity<List<CustomerDto>> fetchAccounts() {
+    List<CustomerDto> customerDtos = iAccountService.fetchAccounts();
+    return ResponseEntity.status(HttpStatus.OK).body(customerDtos);
   }
 
   @PutMapping("/update")

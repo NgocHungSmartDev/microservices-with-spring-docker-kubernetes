@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -38,6 +40,12 @@ public class CardsController {
                                                      String mobileNumber) {
         CardsDto cardsDto = iCardsService.fetchCard(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(cardsDto);
+    }
+
+    @GetMapping("/cards")
+    public ResponseEntity<List<CardsDto>> fetchCards() {
+        List<CardsDto> cardsDtos = iCardsService.fetchCards();
+        return ResponseEntity.status(HttpStatus.OK).body(cardsDtos);
     }
 
     @PutMapping("/update")

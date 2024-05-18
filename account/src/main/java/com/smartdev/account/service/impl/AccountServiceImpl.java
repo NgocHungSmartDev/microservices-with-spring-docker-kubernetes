@@ -12,8 +12,13 @@ import com.smartdev.account.mapper.CustomerMapper;
 import com.smartdev.account.repository.AccountRepository;
 import com.smartdev.account.repository.CustomerRepository;
 import com.smartdev.account.service.IAccountService;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +71,26 @@ public class AccountServiceImpl implements IAccountService {
   }
 
   @Override
+  public List<CustomerDto> fetchAccounts() {
+    List<Customer> customers =
+            customerRepository
+                    .findAll();
+    List<CustomerDto> customerDtos = new ArrayList<>(customers.size());
+    customers.stream().forEach(customer -> {
+      CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
+      Account account =
+              AccountRepository.findByCustomerId(customer.getCustomerId())
+                      .orElseThrow(
+                              () ->
+                                      new ResourceNotFoundException(
+                                              "Account", "customerId", customer.getCustomerId().toString()));
+      customerDto.setAccountDto(AccountMapper.mapToAccountDto(account, new AccountDto()));
+      customerDtos.add(customerDto);
+    });
+    return customerDtos;
+  }
+
+  @Override
   public boolean updateAccount(CustomerDto customerDto) {
     boolean isUpdated = false;
     AccountDto AccountDto = customerDto.getAccountDto();
@@ -95,6 +120,7 @@ public class AccountServiceImpl implements IAccountService {
   }
 
   @Override
+  @Transactional
   public boolean deleteAccount(String mobileNumber) {
     Customer customer =
         customerRepository
