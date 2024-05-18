@@ -1,12 +1,14 @@
 package com.smartdev.cards.controller;
 
 import com.smartdev.cards.constants.CardsConstants;
+import com.smartdev.cards.dto.CardsContactInfoDto;
 import com.smartdev.cards.dto.CardsDto;
 import com.smartdev.cards.dto.ResponseDto;
 import com.smartdev.cards.service.ICardsService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ import java.util.List;
 public class CardsController {
 
     private ICardsService iCardsService;
+
+    @Autowired
+    private CardsContactInfoDto cardsContactInfoDto;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createCard(@Valid @RequestParam
@@ -76,6 +81,13 @@ public class CardsController {
                     .status(HttpStatus.EXPECTATION_FAILED)
                     .body(new ResponseDto(CardsConstants.STATUS_417, CardsConstants.MESSAGE_417_DELETE));
         }
+    }
+
+    @GetMapping("/contact-info")
+    public ResponseEntity<CardsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(cardsContactInfoDto);
     }
 
 }

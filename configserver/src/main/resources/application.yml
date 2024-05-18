@@ -9,7 +9,7 @@ spring:
       server:
          native:
          search-locations: "classpath:/config"
-#         search-locations: "file:///Users//eazybytes//Documents//config"
+#         search-locations: "file:///Users//smartdev//Documents//config"
 #        git:
 #          uri: "https://github.com/eazybytes/eazybytes-config.git"
 #          default-label: main

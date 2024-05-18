@@ -1,12 +1,14 @@
 package com.smartdev.account.controller;
 
 import com.smartdev.account.constants.AccountConstants;
+import com.smartdev.account.dto.AccountsContactInfoDto;
 import com.smartdev.account.dto.CustomerDto;
 import com.smartdev.account.dto.ResponseDto;
 import com.smartdev.account.service.IAccountService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ import java.util.List;
 @Validated
 public class AccountController {
   private IAccountService iAccountService;
+
+  @Autowired
+  private AccountsContactInfoDto accountsContactInfoDto;
 
   @PostMapping("/create")
   public ResponseEntity<ResponseDto> createAccount(@Valid @RequestBody CustomerDto customerDto) {
@@ -70,5 +75,12 @@ public class AccountController {
       return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
           .body(new ResponseDto(AccountConstants.STATUS_417, AccountConstants.MESSAGE_417_DELETE));
     }
+  }
+
+  @GetMapping("/contact-info")
+  public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+    return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(accountsContactInfoDto);
   }
 }

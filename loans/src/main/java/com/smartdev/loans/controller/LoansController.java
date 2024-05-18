@@ -2,12 +2,14 @@ package com.smartdev.loans.controller;
 
 
 import com.smartdev.loans.constants.LoansConstants;
+import com.smartdev.loans.dto.LoansContactInfoDto;
 import com.smartdev.loans.dto.LoansDto;
 import com.smartdev.loans.dto.ResponseDto;
 import com.smartdev.loans.service.ILoansService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,9 @@ import java.util.List;
 public class LoansController {
 
     private ILoansService iLoansService;
+
+    @Autowired
+    private LoansContactInfoDto loansContactInfoDto;
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createLoan(@RequestParam
@@ -79,4 +84,10 @@ public class LoansController {
         }
     }
 
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(loansContactInfoDto);
+    }
 }
